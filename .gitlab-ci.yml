@@ -1,0 +1,49 @@
+
+services:
+  - name: docker:dind
+    command: ["--experimental"]
+stages:
+  - build
+  #    - build_uat
+  - build_staging
+  - build_dev
+build_image:
+  stage: build
+  tags:
+    - delorean-runner
+  before_script:
+    - echo "$env_prod" > .env && cat .env
+  script:
+    - docker-compose build --no-cache
+    - docker-compose up -d
+  only:
+    - main
+
+# For QC sota
+build_stag:
+  stage: build_staging
+  tags:
+    - delorean-staging-sota
+  before_script:
+    #- echo "$env_prod" > .env.prod && cat .env.prod
+    - echo "$env_staging_sota" > .env && cat .env
+  script:
+    - docker-compose build --no-cache
+    - docker-compose up -d
+  only:
+    - staging
+
+# For dev sota
+build_dev:
+  stage: build_dev
+  tags:
+    - delorean-dev-sota
+  before_script:
+    #- echo "$env_prod" > .env.prod && cat .env.prod
+    - echo "$env_develop" > .env && cat .env
+  script:
+#    - docker-compose -f docker-compose-develop.yml  build
+    - docker-compose -f docker-compose-develop.yml up -d
+  only:
+    - dev
+

@@ -1,0 +1,14 @@
+version: '3.7'
+services:
+  future_tech:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: future_tech
+    env_file:
+      - .env
+    command: bash -c "npm run start"
+    tty: true
+    ports:
+      - "${PORT}:${PORT}"
+    restart: always
