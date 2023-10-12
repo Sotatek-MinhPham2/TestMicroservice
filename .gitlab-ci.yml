@@ -1,0 +1,100 @@
+stages: # List of stages for jobs, and their order of execution
+  - lint
+  - test
+  - build-uat
+  - deploy-uat
+  - deploy-dev
+  - deploy-staging
+  - deploy-prod
+
+lint-test-job: # This job also runs in the test stage.
+  stage: lint # DON'T DELETE ME
+  script:
+    - echo "Linting code... Husky + Eslint."
+    - ls -al
+    - docker run -i --rm -v $(pwd):/app/source -v $(pwd)/.prettierrc:/app/.prettierrc hocptit/eslint-ci:0.0.1 "/app/source/{src,apps,libs,test}/**/*.ts"
+    - echo "Done"
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+
+unit-test-job: # This job runs in the test stage.
+  stage: test # DON'T DELETE ME
+  script:
+    - echo "Running unit tests... This will take about 5 seconds."
+    - sleep 5
+    - echo "Code coverage is 90%"
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+
+
+build-uat: # This job runs in the build stage, which runs first.
+  stage: build-uat # Dev-ops doing in here...
+  script:
+    - echo "Compiling the code..."
+    - node -v
+    - yarn install
+    - yarn build
+    - echo "Compile complete."
+  only:
+    - uat
+
+deploy-uat: # This job runs in the deploy stage.
+  stage: deploy-uat # Dev-ops doing in here...
+  script:
+    - echo "Deploying application..."
+    - echo "Application successfully deployed."
+  only:
+    - uat
+# For dev sota
+deploy-dev:
+  stage: deploy-dev
+  tags:
+    - delorean-dev-sota
+  before_script:
+    - echo "$env_develop" > .env && cat .env
+  script:
+    - docker build -t future_tech_backend_mysql .
+    - docker-compose -f docker-compose-develop.yml up -d
+    - docker-compose -f docker-compose-job.yml up -d
+  only:
+    - dev
+# For qc sota
+deploy-staging:
+  stage: deploy-staging
+  tags:
+    - delorean-staging-sota
+  before_script:
+    - echo "$env_staging" > .env && cat .env
+  script:
+    - docker build -t future_tech_backend_mysql .
+    - docker-compose -f docker-compose-develop.yml up -d
+    - docker-compose -f docker-compose-job.yml up -d
+  only:
+    - staging
+
+deploy_uat:
+  stage: deploy-uat
+  only:
+    - uat
+  before_script:
+    - echo "$env_uat" > .env && cat .env
+  script:
+    - docker build -t future_tech_backend_mysql . --no-cache
+    - docker-compose -f docker-compose-uat.yml up -d
+    - docker-compose -f docker-compose-job-uat.yml up -d
+  tags:
+    - delorean_uat
+
+deploy-prod:
+  stage: deploy-prod
+  only:
+    - main
+  before_script:
+    - echo "$env_prod" > .env && cat .env
+
+  script:
+    - docker build -t future_tech_backend_mysql . --no-cache
+    - docker-compose -f docker-compose-prod.yml up -d
+    - docker-compose -f docker-compose-job-prod.yml up -d
+  tags:
+    - delorean_prod

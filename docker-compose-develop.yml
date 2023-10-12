@@ -1,0 +1,18 @@
+version: '3.7'
+services:
+  future_tech_dev:
+    image: future_tech_backend_mysql
+    container_name: future_tech_dev
+    env_file:
+      - .env
+    command: bash -c "yarn && npm run start:dev"
+    tty: true
+    ports:
+      - "${PORT}:${PORT}"
+    restart: always
+    networks:
+      - future-net
+
+networks:
+  future-net:
+    external: true
