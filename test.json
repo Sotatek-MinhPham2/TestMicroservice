@@ -1,0 +1,118 @@
+{
+  "ingredient_ids": [
+    "49", "35", "34"
+  ],
+  "metadata": {
+    "species": "Adelio",
+    "rankLevel": "UltraLegendary",
+    "properties": {
+      "glovesDefault": {
+        "type": "common",
+        "value":
+        "Blue",
+        "depend": "fur",
+        "extension": ".png"
+      },
+      "armor": {
+        "type": "AsianEuropean",
+        "value":
+        "UL Armor-45"
+      ,
+        "asset": "http:/172.16.1.217:5000/assets/nft/adelio/armor",
+        "orderLayer": 2,
+        "extension": ".png"
+      },
+      "helmet": {
+        "type": "SamuraiHelmet",
+        "value":
+        "Samurai Helmet-10",
+        "asset": "http:/172.16.1.217:5000/assets/nft/adelio/helmet",
+        "orderLayer": 9,
+        "extension": ".png"
+      },
+      "uniqueHairStyles": {
+        "type": "UniqueHairStyles",
+        "value":
+        "Unique Hairstyle-05",
+        "asset": "http:/172.16.1.217:5000/assets/nft/adelio/uniqueHairStyles",
+        "orderLayer": 8,
+        "hiddenWhenHaveProperty": "helmet",
+        "extension": ".png"
+      },
+      "weaponsAccessory": {
+        "type": "Common",
+        "value":
+        "Bomerang-01",
+        "asset": "http:/172.16.1.217:5000/assets/nft/adelio/weaponsAccessory",
+        "orderLayer": 3,
+        "extension": ".png"
+      },
+      "fur": {
+        "type": "Common",
+        "value":
+        "Yellow",
+        "asset": "http:/172.16.1.217:5000/assets/nft/adelio/fur",
+        "orderLayer": 1,
+        "extension": ".png"
+      },
+      "forcefield": {
+        "type": "Common",
+        "value":
+        "Forcefield-02",
+        "extension": ".png"
+      },
+      "gloves": {
+        "type": "GlovesMetamaterials",
+        "value":
+        "UL Gloves-29",
+        "asset": "http:/172.16.1.217:5000/assets/nft/adelio/gloves",
+        "orderLayer": 5,
+        "extension": ".png"
+      },
+      "shoes": {
+        "type": "MilitaryShoes",
+        "value":
+        "UL Military Shoes-28",
+        "asset": "http:/172.16.1.217:5000/assets/nft/adelio/shoes",
+        "orderLayer": 6,
+        "extension": ".png"
+      },
+      "naturePower": {
+        "type": "Common",
+        "value":
+        "Wind",
+        "extension": ".png"
+      },
+      "eyes": {
+        "type": "Common",
+        "value":
+        "Glow",
+        "asset": "http:/172.16.1.217:5000/assets/nft/adelio/eyes",
+        "orderLayer": 7,
+        "extension": ".png"
+      },
+      "halo": {
+        "type": "HeadOnly",
+        "value":
+        "Halo Head-02",
+        "asset": "http:/172.16.1.217:5000/assets/nft/adelio/halo",
+        "orderLayer": -0.5,
+        "extension": ".png"
+      },
+      "background": {
+        "type": "Common",
+        "value":
+        "Ice Mountain",
+        "asset": "http:/172.16.1.217:5000/assets/nft/adelio/background",
+        "orderLayer": -1,
+        "extension": ".png"
+      },
+      "location": {
+        "type": "Common",
+        "value":
+        "Desert Nation",
+        "asset": "location"
+      }
+    }
+  }
+}
