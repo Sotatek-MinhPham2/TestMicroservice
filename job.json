@@ -1,0 +1,10 @@
+{
+  "apps": [
+    {
+      "name": "app",
+      "script": "npm run start:dev",
+      "node_args": "",
+      "instances": 1
+    }
+  ]
+}
